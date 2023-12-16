@@ -1,8 +1,13 @@
 package org.behemoth.Medium;
 
+import java.util.Arrays;
+
 public class NumberOfIslands {
     public static void main(String[] args) {
-
+        int[] test = new int[3];
+        char[] test2 = new char[3];
+        System.out.println(Arrays.toString(test));
+        System.out.println(Arrays.toString(test2));
     }
 
     public int numIslands(char[][] grid) {
