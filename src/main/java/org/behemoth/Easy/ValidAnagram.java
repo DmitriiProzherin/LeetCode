@@ -1,11 +1,24 @@
 package org.behemoth.Easy;
 
+import java.util.*;
+
 public class ValidAnagram {
     public static void main(String[] args) {
         String s = "nl";
         String t = "cx";
 
-        System.out.println(isAnagram(s, t));
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+
+        q.add(5);
+        q.add(4);
+        q.add(14);
+        q.add(1);
+
+        System.out.println(q.poll());
+
+        Set<Integer> set = new HashSet<>();
+        Map<Integer, Integer> map = new HashMap<>();
+       // System.out.println(isAnagram(s, t));
     }
 
     public static boolean isAnagram(String s, String t) {
