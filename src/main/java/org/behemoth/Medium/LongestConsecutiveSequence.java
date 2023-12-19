@@ -1,6 +1,10 @@
 package org.behemoth.Medium;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 public class LongestConsecutiveSequence {
     public static void main(String[] args) {
@@ -8,9 +12,45 @@ public class LongestConsecutiveSequence {
         System.out.println(longestConsecutive(nums));
     }
 
+    // O(n), but bad constant
+    public static int longestConsecutive(int[] nums) {
+        if (nums.length == 0 || nums == null) return 0;
+        Set<Integer> set = new HashSet<>(nums.length);
 
-    // Time: O(nlogn)
-    // Space: O(1)
+        for (int i = 0; i < nums.length; i++) {
+            set.add(nums[i]);
+        }
+
+        int c = 1;
+        int max = 1;
+        for (int i = 0; i < nums.length; i++) {
+            c = 1;
+            int el = nums[i];
+            if (set.contains(el)) {
+                int r = el + 1;
+                int l = el - 1;
+                while (set.contains(r)) {
+                    c+=1;
+                    set.remove(r);
+                    r+=1;
+                }
+                while (set.contains(l)) {
+                    c+=1;
+                    set.remove(l);
+                    l-=1;
+                }
+            }
+            max = Math.max(max, c);
+        }
+
+
+        return Math.max(max, c);
+    }
+
+
+    // O(nlogn)
+
+    /*
     public static int longestConsecutive(int[] nums){
         if (nums.length == 0 || nums == null) return 0;
 
@@ -30,4 +70,5 @@ public class LongestConsecutiveSequence {
 
         return Math.max(max, c);
     }
+    */
 }
