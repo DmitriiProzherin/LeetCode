@@ -6,10 +6,11 @@ import java.util.Map;
 public class LongestSubstringWithoutRepeatingCharacters {
     public static void main(String[] args) {
         String s = "aabaab!bb";
-        System.out.println(lengthOfLongestSubstring1(s));
+        System.out.println(lengthOfLongestSubstring(s));
     }
 
     // Bad O(n^2) solution
+    /*
     public static int lengthOfLongestSubstring(String s) {
         if (s == null || s.isEmpty()) return 0;
 
@@ -33,38 +34,30 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
         return Math.max(maxLength, pointerNow - pointerSubstringStart);
     }
-
+       */
     // "abcabb" -> 3 ("abc)
     // "bbbbbb" -> 1 ("b)
 
-    public static int lengthOfLongestSubstring1(String s) {
-        int pointerNow = 0;
-        int pointerPrev = 0;
-        int maxLength = 0;
-        Map<Character, Integer> map = new HashMap<>();
-        Character currentChar;
 
-        while (pointerNow < s.length()) {
-            currentChar = s.charAt(pointerNow);
-
-            if (!map.containsKey(currentChar)) {
-                map.put(currentChar, pointerNow);
+    // O(n)
+    public static int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> map = new HashMap<>(100);
+        char[] chars = s.toCharArray();
+        int len = 0;
+        int max = 0;
+        int start = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (!map.containsKey(chars[i])) {
+                map.put(chars[i], i);
+                len+=1;
             }
             else {
-                if (map.get(currentChar) >= pointerPrev) {
-                    maxLength = Math.max(maxLength, pointerNow - pointerPrev);
-                    pointerPrev = map.get(currentChar) + 1;
-                    map.replace(currentChar, pointerNow);
-                }
-                else {
-                    map.replace(currentChar, pointerNow);
-                }
+                max = Math.max(max, len);
+                start = Math.max(start, map.replace(chars[i], i));
+                len = i - start;
             }
-            pointerNow++;
-
         }
-
-        return Math.max(maxLength, pointerNow - pointerPrev);
+        return Math.max(max, len);
     }
 
 }
